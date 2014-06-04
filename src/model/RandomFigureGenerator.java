@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class RandomFigureGenerateor {
+public class RandomFigureGenerator {
 
     private final List<Figure> figures;
     private final Random random;
