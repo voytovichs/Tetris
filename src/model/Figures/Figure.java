@@ -4,15 +4,30 @@ public abstract class Figure {
 
     protected int X;
     protected int Y;
-    private final int fieldWidth;
-    private final int fieldHeight;
-    private boolean[][] presentation;
+    protected final int fieldWidth;
+    protected final int fieldHeight;
+    protected boolean[][] presentation;
 
     public  Figure(int fieldWidth, int fieldHeight) {
         this.fieldWidth = fieldWidth;
         this.fieldHeight = fieldHeight;
-        X = fieldWidth / 2;
+        X = fieldWidth / 2 - 1;
         Y = 0;
+    }
+
+    public Figure(Figure figure){
+        this.fieldWidth= figure.fieldWidth;
+        this.fieldHeight = figure.fieldHeight;
+        X = figure.getX();
+        Y = figure.getY();
+        boolean[][] figurePresentation = figure.getPresentation();
+        this.presentation = new boolean[figurePresentation.length][figurePresentation[0].length];
+        for(int i = 0; i < presentation.length; i++){
+            for(int j = 0; j < presentation[0].length; j++){
+                presentation[i][j] = figurePresentation[i][j];
+            }
+        }
+
     }
 
     public boolean rotate() {
@@ -76,4 +91,9 @@ public abstract class Figure {
         return presentation;
     }
 
+    public abstract Figure clone();
+
+    protected void setPresentation(boolean[][] presentation){
+        this.presentation = presentation;
+    }
 }

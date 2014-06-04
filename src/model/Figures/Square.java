@@ -2,15 +2,23 @@ package model.Figures;
 
 public class Square extends Figure {
 
-    private boolean[][] presentation = {{true, true}, {true, true}};
+    public Square(int fieldWidth, int fieldHeight){
+        super(fieldWidth, fieldHeight);
+        boolean[][] presentation = {{true, true}, {true, true}};
+        super.setPresentation(presentation);
+    }
 
-    public Square(int fieldWidth){
-        super(fieldWidth);
+    public Square(Figure figure){
+        super(figure);
     }
 
     @Override
-    public void rotate() {
-        //do nothing
+    public boolean rotate() {
+        return true;
+    }
 
+    @Override
+    public Figure clone() {
+        return new Square(this);
     }
 }

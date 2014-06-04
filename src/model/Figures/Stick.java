@@ -3,15 +3,26 @@ package model.Figures;
 public class Stick extends Figure {
 
     private boolean isVertical = false;
-    private boolean[][] presentation = new boolean[][]{{true, true, true, true}};
 
-    public Stick(int fieldWidth) {
-        super(fieldWidth);
-        super.X = fieldWidth / 2 - 1;
+    public Stick(int fieldWidth, int fieldHeight) {
+        super(fieldWidth, fieldHeight);
+        boolean[][] presentation = {{true}, {true}, {true}, {true}};
+        super.setPresentation(presentation);
+        super.X = fieldWidth / 2;
+    }
+
+    public Stick(Figure figure){
+        super(figure);
     }
 
     @Override
-    public void rotate(){
+    public boolean rotate(){
+        int newFigureWidth = presentation[0].length;
+        int newFigureHeight = presentation.length;
+        if(newFigureWidth + X > fieldWidth - 1 || newFigureHeight + Y > fieldHeight - 1 ||
+                newFigureWidth > presentation[0].length && X == 0){
+            return false;
+        }
         if(!isVertical){
             if(super.Y > 0){
                 super.Y -= 1;
@@ -27,6 +38,11 @@ public class Stick extends Figure {
                 isVertical = false;
             }
         }
+        return true;
     }
 
+    @Override
+    public Figure clone() {
+        return new Stick(this);
+    }
 }
