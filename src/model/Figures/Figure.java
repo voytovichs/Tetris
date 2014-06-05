@@ -65,10 +65,12 @@ public abstract class Figure {
         return false;
     }
 
-    public void moveLeft() {
+    public boolean moveLeft() {
         if (this.X >= 1) {
             this.X -= 1;
+            return true;
         }
+        return false;
     }
 
     public int getX(){
