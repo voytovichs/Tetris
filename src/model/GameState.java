@@ -9,28 +9,16 @@ public class GameState extends Observable{
 
     private final int WIDTH = 9;
     private final int HEIGHT = 12;
-    private final int DELAY = 1000;
     private Figure currentFigure;
     private final int[][] field = new int[HEIGHT][WIDTH];
     private int counterOfFigures = 1;
     private RandomFigureGenerator figureGenerator = new RandomFigureGenerator(WIDTH, HEIGHT);
-    private boolean hasGame = true;
+    public boolean hasGame = true;
+    public final int DELAY = 1000;
 
     public GameState() {
         currentFigure = figureGenerator.getRandomFigure();
         drawFigureOnField(currentFigure, field);
-    }
-
-    public static void main(String[] args){
-        GameState gameState = new GameState();
-        while(gameState.hasGame){
-            for(int i = 0; i < gameState.getState().length; i++){
-                System.out.println(Arrays.toString(gameState.getState()[i]));
-            }
-            System.out.println("---------------------------");
-            gameState.moveFigureDown();
-
-        }
     }
 
     private void drawFigureOnField(Figure figure, int[][] field) {
@@ -69,8 +57,34 @@ public class GameState extends Observable{
         return figure.getY() + figure.getHeight() < HEIGHT;
     }
 
+    private int[] movePartOfFieldDown(int currentLineNumber, int[][] field){
+
+        int[] currentLine = Arrays.copyOf(field[currentLineNumber], field[currentLineNumber].length);
+        if(currentLineNumber == 0){
+            for(int i = 0; i < field[0].length; i++){
+                field[0][i] = 0;
+            }
+            return currentLine;
+        }
+
+        int[] previousLine = movePartOfFieldDown(currentLineNumber - 1, field);
+        field[currentLineNumber] = previousLine;
+        return currentLine;
+    }
+
+    private void deleteFilledLines(int[][] field){
+        for(int i = 0; i < field.length; i++){
+            boolean isFilled = true;
+            for(int j = 0; j < field[i].length; j++){
+                if(field[i][j] == 0){ isFilled = false; }
+            }
+            if(isFilled){ movePartOfFieldDown(i, field); }
+        }
+    }
+
     public void moveFigureDown() {
         if (!canFigureMovesDown(currentFigure)) {
+            deleteFilledLines(field);
             currentFigure = figureGenerator.getRandomFigure();
             counterOfFigures++;
             if (checkIntersections(currentFigure, field)) {
