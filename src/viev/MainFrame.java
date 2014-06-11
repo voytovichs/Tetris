@@ -2,21 +2,17 @@ package viev;
 
 import javax.swing.*;
 
-public class ModelRender extends JFrame {
+public class MainFrame extends JFrame {
 
-    private JPanel mainPanel;
+    public MainFrame(JPanel mainFrame){
 
-    public ModelRender(){
-
-        mainPanel = new JPanel();
         setSize(300, 300);
         setTitle("Best tetris ever");
         setResizable(false);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        pack();
+        getContentPane().add(mainFrame);
         setVisible(true);
-
     }
 
 }

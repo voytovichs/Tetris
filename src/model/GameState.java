@@ -1,14 +1,15 @@
 package model;
 
 import model.Figures.Figure;
+import viev.Drawable;
 
 import java.util.Arrays;
 import java.util.Observable;
 
-public class GameState extends Observable{
+public class GameState extends Observable implements Drawable{
 
     private final int WIDTH = 9;
-    private final int HEIGHT = 12;
+    private final int HEIGHT = 16;
     private Figure currentFigure;
     private final int[][] field = new int[HEIGHT][WIDTH];
     private int counterOfFigures = 1;
@@ -106,7 +107,7 @@ public class GameState extends Observable{
         }
         drawFigureOnField(currentFigure, field);
         setChanged();
-        notifyObservers();
+        notifyObservers(this);
     }
 
     public synchronized void moveFigureLeft() {
@@ -114,7 +115,7 @@ public class GameState extends Observable{
         currentFigure.moveLeft();
         drawFigureOnField(currentFigure, field);
         setChanged();
-        notifyObservers();
+        notifyObservers(this);
     }
 
     public synchronized void moveFigureRigth() {
@@ -122,7 +123,7 @@ public class GameState extends Observable{
         currentFigure.moveRight();
         drawFigureOnField(currentFigure, field);
         setChanged();
-        notifyObservers();
+        notifyObservers(this);
     }
 
     public synchronized void rotateFigure() {
@@ -130,9 +131,10 @@ public class GameState extends Observable{
         currentFigure.rotate();
         drawFigureOnField(currentFigure, field);
         setChanged();
-        notifyObservers();
+        notifyObservers(this);
     }
 
+    @Override
     public int[][] getState() {
         return field;
     }

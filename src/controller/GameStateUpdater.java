@@ -1,6 +1,8 @@
 package controller;
 
 import model.GameState;
+import viev.MainFrame;
+import viev.MainPanel;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -11,7 +13,12 @@ public class GameStateUpdater extends KeyAdapter {
     private static GameState gameState;
 
     public static void main(String[] args){
+
         gameState = new GameState();
+        MainPanel mainPanel = new MainPanel(gameState);
+        gameState.addObserver(mainPanel);
+        MainFrame render = new MainFrame(mainPanel);
+
         while(gameState.hasGame){
             for(int i = 0; i < gameState.getState().length; i++){
                 System.out.println(Arrays.toString(gameState.getState()[i]));
