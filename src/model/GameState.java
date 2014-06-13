@@ -141,7 +141,7 @@ public class GameState extends Observable implements Drawable {
         notifyObservers(this);
     }
 
-    public synchronized void moveFigureRigth() {
+    public synchronized void moveFigureRight() {
         eraseFigureFromField(currentFigure, field);
         if (!canFigureMovesRight(currentFigure, field)) {
             drawFigureOnField(currentFigure, field);

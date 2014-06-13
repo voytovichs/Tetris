@@ -23,7 +23,7 @@ public class Listener extends KeyAdapter {
             }
 
             case KeyEvent.VK_RIGHT:{
-                gameState.moveFigureRigth();
+                gameState.moveFigureRight();
                 break;
             }
 
