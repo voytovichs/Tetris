@@ -6,7 +6,7 @@ import viev.Drawable;
 import java.util.Arrays;
 import java.util.Observable;
 
-public class GameState extends Observable implements Drawable{
+public class GameState extends Observable implements Drawable {
 
     private final int WIDTH = 9;
     private final int HEIGHT = 16;
@@ -43,7 +43,7 @@ public class GameState extends Observable implements Drawable{
     }
 
 
-    private boolean checkIntersections(Figure figure, int[][] field) {
+    private boolean isIntersect(Figure figure, int[][] field) {
         for (int i = 0; i < figure.getWidth(); i++) {
             for (int j = 0; j < figure.getHeight(); j++) {
                 if (field[j + figure.getY()][i + figure.getX()] != 0 && figure.getPresentation()[j][i]) {
@@ -58,11 +58,24 @@ public class GameState extends Observable implements Drawable{
         return figure.getY() + figure.getHeight() < HEIGHT;
     }
 
-    private int[] movePartOfFieldDown(int currentLineNumber, int[][] field){
+    private boolean canFigureMovesRight(Figure figure, int[][] field) {
+        Figure potentialFigure = figure.clone();
+        potentialFigure.moveRight();
+        return !isIntersect(potentialFigure, field);
+    }
+
+    private boolean canFigureMovesLeft(Figure figure, int[][] field) {
+        Figure potentialFigure = figure.clone();
+        potentialFigure.moveLeft();
+        return !isIntersect(potentialFigure, field);
+    }
+
+    private int[] movePartOfFieldDown(int currentLineNumber, int[][] field) {
 
         int[] currentLine = Arrays.copyOf(field[currentLineNumber], field[currentLineNumber].length);
-        if(currentLineNumber == 0){
-            for(int i = 0; i < field[0].length; i++){
+        Arrays.equals(field[currentLineNumber], currentLine);
+        if (currentLineNumber == 0) {
+            for (int i = 0; i < field[0].length; i++) {
                 field[0][i] = 0;
             }
             return currentLine;
@@ -73,13 +86,18 @@ public class GameState extends Observable implements Drawable{
         return currentLine;
     }
 
-    private void deleteFilledLines(int[][] field){
-        for(int i = 0; i < field.length; i++){
+    private void deleteFilledLines(int[][] field) {
+        for (int i = 0; i < field.length; i++) {
             boolean isFilled = true;
-            for(int j = 0; j < field[i].length; j++){
-                if(field[i][j] == 0){ isFilled = false; }
+            for (int j = 0; j < field[i].length; j++) {
+                if (field[i][j] == 0) {
+                    isFilled = false;
+                }
             }
-            if(isFilled){ movePartOfFieldDown(i, field); }
+            if (isFilled) {
+                field[i] = movePartOfFieldDown(i - 1, field);
+                i--;
+            }
         }
     }
 
@@ -88,7 +106,7 @@ public class GameState extends Observable implements Drawable{
             deleteFilledLines(field);
             currentFigure = figureGenerator.getRandomFigure();
             counterOfFigures++;
-            if (checkIntersections(currentFigure, field)) {
+            if (isIntersect(currentFigure, field)) {
                 hasGame = false;
             }
             drawFigureOnField(currentFigure, field);
@@ -97,11 +115,12 @@ public class GameState extends Observable implements Drawable{
         Figure previousState = currentFigure.clone();
         currentFigure.moveDown();
         eraseFigureFromField(previousState, field);
-        if (checkIntersections(currentFigure, field)) {
+        if (isIntersect(currentFigure, field)) {
             drawFigureOnField(previousState, field);
+            deleteFilledLines(field);
             currentFigure = figureGenerator.getRandomFigure();
             counterOfFigures++;
-            if (checkIntersections(currentFigure, field)) {
+            if (isIntersect(currentFigure, field)) {
                 hasGame = false;
             }
         }
@@ -112,6 +131,10 @@ public class GameState extends Observable implements Drawable{
 
     public synchronized void moveFigureLeft() {
         eraseFigureFromField(currentFigure, field);
+        if (!canFigureMovesLeft(currentFigure, field)) {
+            drawFigureOnField(currentFigure, field);
+            return;
+        }
         currentFigure.moveLeft();
         drawFigureOnField(currentFigure, field);
         setChanged();
@@ -120,6 +143,10 @@ public class GameState extends Observable implements Drawable{
 
     public synchronized void moveFigureRigth() {
         eraseFigureFromField(currentFigure, field);
+        if (!canFigureMovesRight(currentFigure, field)) {
+            drawFigureOnField(currentFigure, field);
+            return;
+        }
         currentFigure.moveRight();
         drawFigureOnField(currentFigure, field);
         setChanged();

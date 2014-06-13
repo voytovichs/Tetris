@@ -16,11 +16,12 @@ public class RandomFigureGenerator {
         random = new Random();
         figures = new ArrayList<>();
 
-        figures.add(new Cane(fieldWidth, fieldHeight));
-        figures.add(new Square(fieldWidth, fieldHeight));
+       // figures.add(new Cane(fieldWidth, fieldHeight));
+        //figures.add(new Square(fieldWidth, fieldHeight));
         figures.add(new Stick(fieldWidth, fieldHeight));
         figures.add(new TFigure(fieldWidth, fieldHeight));
-        figures.add(new ZFigure(fieldWidth, fieldHeight));
+        //figures.add(new ZLeftFigure(fieldWidth, fieldHeight));
+        //figures.add(new ZRightFigure(fieldWidth, fieldHeight));
 
     }
 

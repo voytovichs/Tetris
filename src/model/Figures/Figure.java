@@ -58,7 +58,7 @@ public abstract class Figure {
     }
 
     public boolean moveRight() {
-        if (this.X + getWidth() - this.fieldWidth >= 1) {
+        if (this.fieldWidth - (this.X + getWidth()) >= 1) {
             this.X += 1;
             return true;
         }
