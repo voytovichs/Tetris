@@ -111,7 +111,7 @@ public class GameState extends Observable implements Drawable {
         setChangedAndNotify();
     }
 
-    public void moveFigureDown() {
+    public synchronized void moveFigureDown() {
 
         if (!canFigureMovesDown(currentFigure)) {
             deleteFilledLines(field);

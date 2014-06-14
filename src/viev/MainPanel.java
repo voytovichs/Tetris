@@ -55,6 +55,7 @@ public class MainPanel extends JPanel implements Observer {
 
         BufferedImage bi = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
         Graphics2D biGraphics = bi.createGraphics();
+        biGraphics.setBackground(Color.WHITE);
         biGraphics.clearRect(0, 0, width, height);
         Random random = new Random();
 
