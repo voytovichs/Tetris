@@ -14,7 +14,7 @@ public class CaneRight extends Figure {
 
     @Override
     public boolean rotate() {
-        if(this.getWidth() + X == fieldWidth && getWidth() == 2){
+        if (this.getWidth() + X == fieldWidth && getWidth() == 2) {
             return false;
         }
         return super.rotate();

@@ -179,7 +179,7 @@ public class GameState extends Observable implements Drawable {
         setChangedAndNotify();
     }
 
-    public void setChangedAndNotify(){
+    public void setChangedAndNotify() {
         setChanged();
         notifyObservers();
     }
