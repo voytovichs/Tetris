@@ -16,7 +16,7 @@ public class MainPanel extends JPanel implements Observer {
     private final Drawable model;
     private final List<BufferedImage> blocksList;
     private final Map<Integer, BufferedImage> currentBlocks;
-    private final int BLOCK_SIZE = 20;
+    private final int BLOCK_SIZE = 30;
     private final int BORDER_SIZE = 0;
     private final int width;
     private final int height;
@@ -43,7 +43,15 @@ public class MainPanel extends JPanel implements Observer {
     private List<BufferedImage> getBlocks() {
         List<BufferedImage> blocksList = new ArrayList<>();
         try {
-            blocksList.add(ImageIO.read(new File("resources/unltrasphere.png")));
+            blocksList.add(ImageIO.read(new File("resources/aqua.png")));
+            blocksList.add(ImageIO.read(new File("resources/blue.png")));
+            blocksList.add(ImageIO.read(new File("resources/bluegray.png")));
+            blocksList.add(ImageIO.read(new File("resources/bluepeach.png")));
+            blocksList.add(ImageIO.read(new File("resources/bordo.png")));
+            blocksList.add(ImageIO.read(new File("resources/darkblue.png")));
+            blocksList.add(ImageIO.read(new File("resources/green.png")));
+            blocksList.add(ImageIO.read(new File("resources/red.png")));
+            blocksList.add(ImageIO.read(new File("resources/yellow.png")));
         } catch (IOException e) {
             blocksList.add(new BufferedImage(10, 10, 10));
         }
