@@ -2,7 +2,7 @@ package model.Figures;
 
 public class Stick extends Figure {
 
-    private boolean isVertical = false;
+    private boolean isVertical = true;
 
     public Stick(int fieldWidth, int fieldHeight) {
         super(fieldWidth, fieldHeight);
@@ -11,31 +11,43 @@ public class Stick extends Figure {
         super.X = fieldWidth / 2;
     }
 
-    public Stick(Figure figure){
+    public Stick(Figure figure) {
         super(figure);
     }
 
     @Override
-    public boolean rotate(){
-        int newFigureWidth = presentation[0].length;
-        int newFigureHeight = presentation.length;
-        if(newFigureWidth + X > fieldWidth - 1 || newFigureHeight + Y > fieldHeight - 1 ||
-                newFigureWidth > presentation[0].length && X == 0){
-            return false;
-        }
-        if(!isVertical){
-            if(super.Y > 0){
-                super.Y -= 1;
-                super.X += 1;
-                presentation = new boolean[][]{{true}, {true}, {true}, {true}};
-                isVertical = true;
-            }
-        }else{
-            if(super.X > 0){
-                super.X -= 1;
-                super.Y += 1;
+    public boolean rotate() {
+
+        int newFigureWidth = this.getHeight();
+        int newFigureHeight = this.getWidth();
+
+        if (isVertical) {
+            if (super.Y > 0) {
+                int newFigureX = super.X - 1;
+                int newFigureY = super.Y + 1;
+
+                if (newFigureX < 0 || newFigureX + newFigureWidth > fieldWidth) {
+                    return false;
+                }
+
+                super.X = newFigureX;
+                super.Y = newFigureY;
                 presentation = new boolean[][]{{true, true, true, true}};
                 isVertical = false;
+            }
+        } else {
+            if (super.X >= 0) {
+                int newFigureX = super.X + 1;
+                int newFigureY = super.Y - 1;
+
+                if (newFigureY + newFigureHeight > fieldHeight) {
+                    return false;
+                }
+
+                super.X = newFigureX;
+                super.Y = newFigureY;
+                presentation = new boolean[][]{{true}, {true}, {true}, {true}};
+                isVertical = true;
             }
         }
         return true;

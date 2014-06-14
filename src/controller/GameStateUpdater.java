@@ -11,14 +11,14 @@ public class GameStateUpdater {
 
     private static GameState gameState;
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
 
         gameState = new GameState();
         MainPanel mainPanel = new MainPanel(gameState, new Listener(gameState));
         gameState.addObserver(mainPanel);
         new MainFrame(mainPanel);
 
-        while(gameState.hasGame){
+        while (gameState.hasGame) {
             gameState.moveFigureDown();
             try {
                 Thread.sleep(gameState.DELAY);

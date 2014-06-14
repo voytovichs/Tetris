@@ -8,22 +8,22 @@ public abstract class Figure {
     protected final int fieldHeight;
     protected boolean[][] presentation;
 
-    public  Figure(int fieldWidth, int fieldHeight) {
+    public Figure(int fieldWidth, int fieldHeight) {
         this.fieldWidth = fieldWidth;
         this.fieldHeight = fieldHeight;
         X = fieldWidth / 2 - 1;
         Y = 0;
     }
 
-    public Figure(Figure figure){
-        this.fieldWidth= figure.fieldWidth;
+    public Figure(Figure figure) {
+        this.fieldWidth = figure.fieldWidth;
         this.fieldHeight = figure.fieldHeight;
         X = figure.getX();
         Y = figure.getY();
         boolean[][] figurePresentation = figure.getPresentation();
         this.presentation = new boolean[figurePresentation.length][figurePresentation[0].length];
-        for(int i = 0; i < presentation.length; i++){
-            for(int j = 0; j < presentation[0].length; j++){
+        for (int i = 0; i < presentation.length; i++) {
+            for (int j = 0; j < presentation[0].length; j++) {
                 presentation[i][j] = figurePresentation[i][j];
             }
         }
@@ -34,8 +34,8 @@ public abstract class Figure {
 
         int newFigureWidth = presentation[0].length;
         int newFigureHeight = presentation.length;
-        if(newFigureWidth + X > fieldWidth - 1 || newFigureHeight + Y > fieldHeight - 1 ||
-                newFigureWidth > presentation[0].length && X == 0){
+        if (newFigureWidth + X > fieldWidth || newFigureHeight + Y > fieldHeight - 1 ||
+                newFigureWidth > presentation[0].length && X == 0) {
             return false;
         }
         boolean[][] newFigure = new boolean[newFigureWidth][newFigureHeight];
@@ -50,7 +50,7 @@ public abstract class Figure {
     }
 
     public boolean moveDown() {
-        if(Y + 1< fieldHeight){
+        if (Y + 1 < fieldHeight) {
             this.Y += 1;
             return true;
         }
@@ -73,29 +73,29 @@ public abstract class Figure {
         return false;
     }
 
-    public int getX(){
+    public int getX() {
         return X;
     }
 
-    public int getY(){
+    public int getY() {
         return Y;
     }
 
-    public int getWidth(){
+    public int getWidth() {
         return presentation[0].length;
     }
 
-    public int getHeight(){
+    public int getHeight() {
         return this.presentation.length;
     }
 
-    public boolean[][] getPresentation(){
+    public boolean[][] getPresentation() {
         return presentation;
     }
 
     public abstract Figure clone();
 
-    protected void setPresentation(boolean[][] presentation){
+    protected void setPresentation(boolean[][] presentation) {
         this.presentation = presentation;
     }
 }

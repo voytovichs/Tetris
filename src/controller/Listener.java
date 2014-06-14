@@ -9,35 +9,35 @@ public class Listener extends KeyAdapter {
 
     private final GameState gameState;
 
-    public Listener(GameState gameState){
+    public Listener(GameState gameState) {
         this.gameState = gameState;
     }
 
     @Override
     public void keyPressed(KeyEvent e) {
-        switch(e.getKeyCode()){
+        switch (e.getKeyCode()) {
 
-            case KeyEvent.VK_LEFT:{
+            case KeyEvent.VK_LEFT: {
                 gameState.moveFigureLeft();
                 break;
             }
 
-            case KeyEvent.VK_RIGHT:{
+            case KeyEvent.VK_RIGHT: {
                 gameState.moveFigureRight();
                 break;
             }
 
-            case KeyEvent.VK_UP:{
+            case KeyEvent.VK_UP: {
                 gameState.rotateFigure();
                 break;
             }
 
-            case KeyEvent.VK_DOWN:{
+            case KeyEvent.VK_DOWN: {
                 gameState.moveFigureDown();
                 break;
             }
 
-            default:{
+            default: {
                 //just ignore it
             }
         }

@@ -70,6 +70,12 @@ public class GameState extends Observable implements Drawable {
         return !isIntersect(potentialFigure, field);
     }
 
+    private boolean canFigureRotates(Figure figure, int[][] field) {
+        Figure potentialFigure = figure.clone();
+        potentialFigure.rotate();
+        return !isIntersect(potentialFigure, field);
+    }
+
     private int[] movePartOfFieldDown(int currentLineNumber, int[][] field) {
 
         int[] currentLine = Arrays.copyOf(field[currentLineNumber], field[currentLineNumber].length);
@@ -99,9 +105,13 @@ public class GameState extends Observable implements Drawable {
                 i--;
             }
         }
+
+        setChanged();
+        notifyObservers();
     }
 
     public void moveFigureDown() {
+
         if (!canFigureMovesDown(currentFigure)) {
             deleteFilledLines(field);
             currentFigure = figureGenerator.getRandomFigure();
@@ -110,8 +120,8 @@ public class GameState extends Observable implements Drawable {
                 hasGame = false;
             }
             drawFigureOnField(currentFigure, field);
-
         }
+
         Figure previousState = currentFigure.clone();
         currentFigure.moveDown();
         eraseFigureFromField(previousState, field);
@@ -124,41 +134,52 @@ public class GameState extends Observable implements Drawable {
                 hasGame = false;
             }
         }
+
         drawFigureOnField(currentFigure, field);
         setChanged();
-        notifyObservers(this);
+        notifyObservers();
     }
 
     public synchronized void moveFigureLeft() {
+
         eraseFigureFromField(currentFigure, field);
         if (!canFigureMovesLeft(currentFigure, field)) {
             drawFigureOnField(currentFigure, field);
             return;
         }
         currentFigure.moveLeft();
+
         drawFigureOnField(currentFigure, field);
         setChanged();
-        notifyObservers(this);
+        notifyObservers();
     }
 
     public synchronized void moveFigureRight() {
+
         eraseFigureFromField(currentFigure, field);
         if (!canFigureMovesRight(currentFigure, field)) {
             drawFigureOnField(currentFigure, field);
             return;
         }
         currentFigure.moveRight();
+
         drawFigureOnField(currentFigure, field);
         setChanged();
-        notifyObservers(this);
+        notifyObservers();
     }
 
     public synchronized void rotateFigure() {
+
         eraseFigureFromField(currentFigure, field);
+        if (!canFigureRotates(currentFigure, field)) {
+            drawFigureOnField(currentFigure, field);
+            return;
+        }
         currentFigure.rotate();
+
         drawFigureOnField(currentFigure, field);
         setChanged();
-        notifyObservers(this);
+        notifyObservers();
     }
 
     @Override
