@@ -4,14 +4,14 @@ import javax.swing.*;
 
 public class MainFrame extends JFrame {
 
-    public MainFrame(JPanel mainFrame) {
+    public MainFrame(JPanel mainPanel) {
 
-        setSize(180, 320);
+        setSize(mainPanel.getWidth(), mainPanel.getHeight());
         setTitle("Best tetris ever");
         setResizable(false);
         setLocationRelativeTo(null);
-        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        getContentPane().add(mainFrame);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        getContentPane().add(mainPanel);
         setVisible(true);
     }
 

@@ -8,7 +8,7 @@ import java.util.Observable;
 
 public class GameState extends Observable implements Drawable {
 
-    private final int WIDTH = 9;
+    private final int WIDTH = 10;
     private final int HEIGHT = 16;
     private Figure currentFigure;
     private final int[][] field = new int[HEIGHT][WIDTH];
@@ -44,14 +44,18 @@ public class GameState extends Observable implements Drawable {
 
 
     private boolean isIntersect(Figure figure, int[][] field) {
-        for (int i = 0; i < figure.getWidth(); i++) {
-            for (int j = 0; j < figure.getHeight(); j++) {
-                if (field[j + figure.getY()][i + figure.getX()] != 0 && figure.getPresentation()[j][i]) {
-                    return true;
+        try {
+            for (int i = 0; i < figure.getWidth(); i++) {
+                for (int j = 0; j < figure.getHeight(); j++) {
+                    if (field[j + figure.getY()][i + figure.getX()] != 0 && figure.getPresentation()[j][i]) {
+                        return true;
+                    }
                 }
             }
+            return false;
+        } catch (ArrayIndexOutOfBoundsException e) {
+            return false;
         }
-        return false;
     }
 
     private boolean canFigureMovesDown(Figure figure) {
@@ -79,7 +83,6 @@ public class GameState extends Observable implements Drawable {
     private int[] movePartOfFieldDown(int currentLineNumber, int[][] field) {
 
         int[] currentLine = Arrays.copyOf(field[currentLineNumber], field[currentLineNumber].length);
-        Arrays.equals(field[currentLineNumber], currentLine);
         if (currentLineNumber == 0) {
             for (int i = 0; i < field[0].length; i++) {
                 field[0][i] = 0;
@@ -105,9 +108,7 @@ public class GameState extends Observable implements Drawable {
                 i--;
             }
         }
-
-        setChanged();
-        notifyObservers();
+        setChangedAndNotify();
     }
 
     public void moveFigureDown() {
@@ -136,8 +137,7 @@ public class GameState extends Observable implements Drawable {
         }
 
         drawFigureOnField(currentFigure, field);
-        setChanged();
-        notifyObservers();
+        setChangedAndNotify();
     }
 
     public synchronized void moveFigureLeft() {
@@ -150,8 +150,7 @@ public class GameState extends Observable implements Drawable {
         currentFigure.moveLeft();
 
         drawFigureOnField(currentFigure, field);
-        setChanged();
-        notifyObservers();
+        setChangedAndNotify();
     }
 
     public synchronized void moveFigureRight() {
@@ -164,8 +163,7 @@ public class GameState extends Observable implements Drawable {
         currentFigure.moveRight();
 
         drawFigureOnField(currentFigure, field);
-        setChanged();
-        notifyObservers();
+        setChangedAndNotify();
     }
 
     public synchronized void rotateFigure() {
@@ -178,6 +176,10 @@ public class GameState extends Observable implements Drawable {
         currentFigure.rotate();
 
         drawFigureOnField(currentFigure, field);
+        setChangedAndNotify();
+    }
+
+    public void setChangedAndNotify(){
         setChanged();
         notifyObservers();
     }

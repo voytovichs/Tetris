@@ -4,8 +4,6 @@ import model.GameState;
 import viev.MainFrame;
 import viev.MainPanel;
 
-/* 1) Нужно фиксить rotation'ы, особенно у палочки, она вообще эксепшн кидает
- * 2) Сделать что-нибудь с thread.sleep()*/
 
 public class GameStateUpdater {
 
@@ -15,8 +13,10 @@ public class GameStateUpdater {
 
         gameState = new GameState();
         MainPanel mainPanel = new MainPanel(gameState, new Listener(gameState));
+
         gameState.addObserver(mainPanel);
         new MainFrame(mainPanel);
+        gameState.setChangedAndNotify();
 
         while (gameState.hasGame) {
             gameState.moveFigureDown();

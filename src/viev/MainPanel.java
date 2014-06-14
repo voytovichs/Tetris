@@ -26,13 +26,13 @@ public class MainPanel extends JPanel implements Observer {
 
         this.blocksList = getBlocks();
         currentBlocks = new HashMap<>();
-        this.model = model;//Можно просто достать эту херню из update, ему приходит args
+        this.model = model;
         this.width = model.getState()[0].length * BLOCK_SIZE + 2 * BORDER_SIZE;
         this.height = model.getState().length * BLOCK_SIZE + 2 * BORDER_SIZE;
         this.addKeyListener(listener);
 
         setFocusable(true);
-        setPreferredSize(new Dimension(width, height));
+        setSize(new Dimension(width, height));
     }
 
     @Override
@@ -55,14 +55,13 @@ public class MainPanel extends JPanel implements Observer {
 
         BufferedImage bi = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
         Graphics2D biGraphics = bi.createGraphics();
-        biGraphics.setColor(Color.WHITE);
         biGraphics.clearRect(0, 0, width, height);
         Random random = new Random();
 
         for (int i = 0; i < model.length; i++) {
             for (int j = 0; j < model[i].length; j++) {
 
-                //There's empty block
+                //There's an empty block
                 if (model[i][j] == 0) {
                     continue;
                 }
