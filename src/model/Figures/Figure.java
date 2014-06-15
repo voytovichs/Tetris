@@ -8,14 +8,14 @@ public abstract class Figure {
     protected final int fieldHeight;
     protected boolean[][] presentation;
 
-    public Figure(int fieldWidth, int fieldHeight) {
+    public Figure(final int fieldWidth, final int fieldHeight) {
         this.fieldWidth = fieldWidth;
         this.fieldHeight = fieldHeight;
         X = fieldWidth / 2 - 1;
-        Y = 0;
+        Y = -1;
     }
 
-    public Figure(Figure figure) {
+    public Figure(final Figure figure) {
         this.fieldWidth = figure.fieldWidth;
         this.fieldHeight = figure.fieldHeight;
         X = figure.getX();
@@ -95,7 +95,7 @@ public abstract class Figure {
 
     public abstract Figure clone();
 
-    protected void setPresentation(boolean[][] presentation) {
+    protected void setPresentation(final boolean[][] presentation) {
         this.presentation = presentation;
     }
 }

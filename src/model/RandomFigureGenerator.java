@@ -11,7 +11,7 @@ public class RandomFigureGenerator {
     private final List<Figure> figures;
     private final Random random;
 
-    public RandomFigureGenerator(int fieldWidth, int fieldHeight) {
+    public RandomFigureGenerator(final int fieldWidth, final int fieldHeight) {
 
         random = new Random();
         figures = new ArrayList<>();

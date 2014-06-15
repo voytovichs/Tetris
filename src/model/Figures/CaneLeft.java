@@ -2,7 +2,7 @@ package model.Figures;
 
 public class CaneLeft extends Figure {
 
-    public CaneLeft(int fieldWidth, int fieldHeight) {
+    public CaneLeft(final int fieldWidth, final int fieldHeight) {
         super(fieldWidth, fieldHeight);
         boolean[][] presentation = {{true, true, true}, {true, false, false}};
         super.setPresentation(presentation);
@@ -19,7 +19,6 @@ public class CaneLeft extends Figure {
         }
         return super.rotate();
     }
-
 
     @Override
     public Figure clone() {

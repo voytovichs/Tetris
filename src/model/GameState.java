@@ -13,74 +13,72 @@ public class GameState extends Observable implements Drawable {
     private Figure currentFigure;
     private final int[][] field = new int[HEIGHT][WIDTH];
     private int counterOfFigures = 1;
-    private RandomFigureGenerator figureGenerator = new RandomFigureGenerator(WIDTH, HEIGHT);
+    private final RandomFigureGenerator figureGenerator = new RandomFigureGenerator(WIDTH, HEIGHT);
     public boolean hasGame = true;
-    public final int DELAY = 1000;
+    public boolean isPaused = false;
+    public int DELAY = 1000;
+    public int score = 0;
 
     public GameState() {
         currentFigure = figureGenerator.getRandomFigure();
-        drawFigureOnField(currentFigure, field);
     }
 
-    private void drawFigureOnField(Figure figure, int[][] field) {
+    private void drawFigureOnField(final Figure figure, final int[][] field) {
         for (int i = 0; i < figure.getWidth(); i++) {
             for (int j = 0; j < figure.getHeight(); j++) {
-                if (figure.getPresentation()[j][i]) {
+                if (figure.getPresentation()[j][i] && figure.getY() + j >= 0) {
                     field[j + figure.getY()][i + figure.getX()] = counterOfFigures;
                 }
             }
         }
     }
 
-    private void eraseFigureFromField(Figure figure, int[][] field) {
+    private void eraseFigureFromField(final Figure figure, final int[][] field) {
         for (int i = 0; i < figure.getWidth(); i++) {
             for (int j = 0; j < figure.getHeight(); j++) {
-                if (figure.getPresentation()[j][i]) {
+                if (figure.getPresentation()[j][i] && figure.getY() + j >= 0) {
                     field[j + figure.getY()][i + figure.getX()] = 0;
                 }
             }
         }
     }
 
-
-    private boolean isIntersect(Figure figure, int[][] field) {
-        try {
-            for (int i = 0; i < figure.getWidth(); i++) {
-                for (int j = 0; j < figure.getHeight(); j++) {
+    private boolean isIntersect(final Figure figure, final int[][] field) {
+        for (int i = 0; i < figure.getWidth(); i++) {
+            for (int j = 0; j < figure.getHeight(); j++) {
+                if (figure.getY() + j >= 0) {
                     if (field[j + figure.getY()][i + figure.getX()] != 0 && figure.getPresentation()[j][i]) {
                         return true;
                     }
                 }
             }
-            return false;
-        } catch (ArrayIndexOutOfBoundsException e) {
-            return false;
         }
+        return false;
     }
 
-    private boolean canFigureMovesDown(Figure figure) {
+    private boolean canFigureMovesDown(final Figure figure) {
         return figure.getY() + figure.getHeight() < HEIGHT;
     }
 
-    private boolean canFigureMovesRight(Figure figure, int[][] field) {
+    private boolean canFigureMovesRight(final Figure figure, final int[][] field) {
         Figure potentialFigure = figure.clone();
         potentialFigure.moveRight();
         return !isIntersect(potentialFigure, field);
     }
 
-    private boolean canFigureMovesLeft(Figure figure, int[][] field) {
+    private boolean canFigureMovesLeft(final Figure figure, final int[][] field) {
         Figure potentialFigure = figure.clone();
         potentialFigure.moveLeft();
         return !isIntersect(potentialFigure, field);
     }
 
-    private boolean canFigureRotates(Figure figure, int[][] field) {
+    private boolean canFigureRotates(final Figure figure, final int[][] field) {
         Figure potentialFigure = figure.clone();
         potentialFigure.rotate();
         return !isIntersect(potentialFigure, field);
     }
 
-    private int[] movePartOfFieldDown(int currentLineNumber, int[][] field) {
+    private int[] movePartOfFieldDown(final int currentLineNumber, final int[][] field) {
 
         int[] currentLine = Arrays.copyOf(field[currentLineNumber], field[currentLineNumber].length);
         if (currentLineNumber == 0) {
@@ -95,7 +93,7 @@ public class GameState extends Observable implements Drawable {
         return currentLine;
     }
 
-    private void deleteFilledLines(int[][] field) {
+    private void deleteFilledLines(final int[][] field) {
         for (int i = 0; i < field.length; i++) {
             boolean isFilled = true;
             for (int j = 0; j < field[i].length; j++) {
@@ -106,6 +104,7 @@ public class GameState extends Observable implements Drawable {
             if (isFilled) {
                 field[i] = movePartOfFieldDown(i - 1, field);
                 i--;
+                increaseScore();
             }
         }
         setChangedAndNotify();
@@ -117,15 +116,14 @@ public class GameState extends Observable implements Drawable {
             deleteFilledLines(field);
             currentFigure = figureGenerator.getRandomFigure();
             counterOfFigures++;
-            if (isIntersect(currentFigure, field)) {
-                hasGame = false;
-            }
             drawFigureOnField(currentFigure, field);
+            setChangedAndNotify();
+            return;
         }
 
+        eraseFigureFromField(currentFigure, field);
         Figure previousState = currentFigure.clone();
         currentFigure.moveDown();
-        eraseFigureFromField(previousState, field);
         if (isIntersect(currentFigure, field)) {
             drawFigureOnField(previousState, field);
             deleteFilledLines(field);
@@ -133,9 +131,12 @@ public class GameState extends Observable implements Drawable {
             counterOfFigures++;
             if (isIntersect(currentFigure, field)) {
                 hasGame = false;
+                return;
             }
+            drawFigureOnField(currentFigure, field);
+            setChangedAndNotify();
+            return;
         }
-
         drawFigureOnField(currentFigure, field);
         setChangedAndNotify();
     }
@@ -182,6 +183,13 @@ public class GameState extends Observable implements Drawable {
     public void setChangedAndNotify() {
         setChanged();
         notifyObservers();
+    }
+
+    private void increaseScore() {
+        score += 10 * WIDTH;
+        if (DELAY > 300) {
+            DELAY -= 15;
+        }
     }
 
     @Override

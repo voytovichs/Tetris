@@ -2,13 +2,13 @@ package model.Figures;
 
 public class TFigure extends Figure {
 
-    public TFigure(int fieldWidth, int fieldHeight) {
+    public TFigure(final int fieldWidth, final int fieldHeight) {
         super(fieldWidth, fieldHeight);
         boolean[][] presentation = {{false, true, false}, {true, true, true}};
         super.setPresentation(presentation);
     }
 
-    public TFigure(Figure figure) {
+    public TFigure(final Figure figure) {
         super(figure);
     }
 

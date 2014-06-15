@@ -4,7 +4,7 @@ import javax.swing.*;
 
 public class MainFrame extends JFrame {
 
-    public MainFrame(JPanel mainPanel) {
+    public MainFrame(final JPanel mainPanel) {
 
         setSize(mainPanel.getWidth(), mainPanel.getHeight());
         setTitle("Best tetris ever");

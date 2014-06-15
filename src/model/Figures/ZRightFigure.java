@@ -2,13 +2,13 @@ package model.Figures;
 
 public class ZRightFigure extends Figure {
 
-    public ZRightFigure(int fieldWidth, int fieldHeight) {
+    public ZRightFigure(final int fieldWidth, final int fieldHeight) {
         super(fieldWidth, fieldHeight);
         boolean[][] presentation = {{false, true, true}, {true, true, false}};
         super.setPresentation(presentation);
     }
 
-    public ZRightFigure(Figure figure) {
+    public ZRightFigure(final Figure figure) {
         super(figure);
     }
 

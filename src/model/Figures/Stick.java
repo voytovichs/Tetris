@@ -4,14 +4,15 @@ public class Stick extends Figure {
 
     private boolean isVertical = true;
 
-    public Stick(int fieldWidth, int fieldHeight) {
+    public Stick(final int fieldWidth, final int fieldHeight) {
         super(fieldWidth, fieldHeight);
         boolean[][] presentation = {{true}, {true}, {true}, {true}};
         super.setPresentation(presentation);
         super.X = fieldWidth / 2;
+        super.Y = -3;
     }
 
-    public Stick(Figure figure) {
+    public Stick(final Figure figure) {
         super(figure);
     }
 
@@ -22,7 +23,7 @@ public class Stick extends Figure {
         int newFigureHeight = this.getWidth();
 
         if (isVertical) {
-            if (super.Y > 0) {
+            if (super.Y > -3) {
                 int newFigureX = super.X - 1;
                 int newFigureY = super.Y + 1;
 

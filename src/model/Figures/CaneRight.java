@@ -2,7 +2,7 @@ package model.Figures;
 
 public class CaneRight extends Figure {
 
-    public CaneRight(int fieldWidth, int fieldHeight) {
+    public CaneRight(final int fieldWidth, final int fieldHeight) {
         super(fieldWidth, fieldHeight);
         boolean[][] presentation = {{true, true, true}, {false, false, true}};
         super.setPresentation(presentation);

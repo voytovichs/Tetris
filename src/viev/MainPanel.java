@@ -22,7 +22,7 @@ public class MainPanel extends JPanel implements Observer {
     private final int height;
 
 
-    public MainPanel(Drawable model, KeyAdapter listener) {
+    public MainPanel(final Drawable model, final KeyAdapter listener) {
 
         this.blocksList = getBlocks();
         currentBlocks = new HashMap<>();
@@ -36,7 +36,7 @@ public class MainPanel extends JPanel implements Observer {
     }
 
     @Override
-    public void update(Observable o, Object arg) {
+    public void update(final Observable o, final Object arg) {
         renderModel((Graphics2D) getGraphics(), model.getState(), width, height, BLOCK_SIZE, BORDER_SIZE, blocksList, currentBlocks);
     }
 
@@ -57,8 +57,8 @@ public class MainPanel extends JPanel implements Observer {
         return blocksList;
     }
 
-    private void renderModel(Graphics2D g, int[][] model, int width, int height, int blockSize,
-                             int borderSize, List<BufferedImage> blocks, Map<Integer, BufferedImage> currentBlocks) {
+    private void renderModel(final Graphics2D g, final int[][] model, final int width, final int height, final int blockSize,
+                             final int borderSize, final List<BufferedImage> blocks, final Map<Integer, BufferedImage> currentBlocks) {
 
         BufferedImage bi = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
         Graphics2D biGraphics = bi.createGraphics();
