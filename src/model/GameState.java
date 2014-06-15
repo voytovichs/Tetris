@@ -8,7 +8,7 @@ import java.util.Observable;
 
 public class GameState extends Observable implements Drawable {
 
-    private final int WIDTH = 10;
+    private final int WIDTH = 11;
     private final int HEIGHT = 16;
     private Figure currentFigure;
     private final int[][] field = new int[HEIGHT][WIDTH];

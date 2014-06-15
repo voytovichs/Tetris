@@ -16,7 +16,7 @@ public class MainPanel extends JPanel implements Observer {
     private final Drawable model;
     private final List<BufferedImage> blocksList;
     private final Map<Integer, BufferedImage> currentBlocks;
-    private final int BLOCK_SIZE = 28;
+    private final int BLOCK_SIZE = 30;
     private final int BORDER_SIZE = 0;
     private final int width;
     private final int height;
