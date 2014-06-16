@@ -1,19 +1,15 @@
 package viev;
 
 import javax.swing.*;
-import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.util.Observable;
-import java.util.Observer;
 
-public class MainFrame extends JFrame implements Observer {
+public class MainFrame extends JFrame {
 
     private final Drawable model;
 
-    public MainFrame(final JPanel mainPanel, Drawable model) {
+    public MainFrame(JPanel mainPanel, Drawable model) {
         this.model = model;
 
-        setSize(mainPanel.getWidth(), mainPanel.getHeight() + 30);
+        setSize(mainPanel.getWidth(), mainPanel.getHeight());
         setTitle("Best tetris ever");
         setResizable(false);
         setLocationRelativeTo(null);
@@ -22,16 +18,8 @@ public class MainFrame extends JFrame implements Observer {
         setVisible(true);
     }
 
-    @Override
-    public void update(Observable o, Object arg) {
-
+    public void clearAndRestart(){
+        model.clear();
     }
 
-    private void drawScoreAndInfo(Graphics2D g, int score){
-
-        BufferedImage info = new BufferedImage(getWidth(), 30, BufferedImage.TYPE_INT_ARGB);
-        Graphics2D infoGraphics = (Graphics2D)info.getGraphics();
-        infoGraphics.setBackground(new Color(40, 40, 40));
-        g.drawImage(info, 0, 0, null);
-    }
 }

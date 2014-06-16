@@ -12,38 +12,68 @@ import java.util.List;
 
 public class MainPanel extends JPanel implements Observer {
 
+    private int bestScore;
     private final Drawable model;
+
+    private Color currentBackground;
+    private Iterator<Color> colorIterator;
     private final List<BufferedImage> blocksList;
     private final List<Color> backgroundColors;
-    private Iterator<Color> colorIterator;
-    private Color currentBackground;
     private final Map<Integer, BufferedImage> currentBlocks;
-    private final int BLOCK_SIZE = 30;
+
     private final int width;
     private final int height;
+    private final int BLOCK_SIZE = 30;
 
 
-    public MainPanel(final Drawable model) {
+    public MainPanel(final Drawable model, final int bestScore) {
 
         blocksList = initialBlocksPictures();
         backgroundColors = initialBackgroundColors();
         colorIterator = backgroundColors.iterator();
         currentBackground = colorIterator.next();
         currentBlocks = new HashMap<>();
+
         this.model = model;
+        this.bestScore = bestScore;
         width = model.getState()[0].length * BLOCK_SIZE;
         height = model.getState().length * BLOCK_SIZE;
 
         setFocusable(true);
-        setSize(new Dimension(width, height));
+        setSize(new Dimension(width, height + 30));
     }
 
     @Override
     public void update(final Observable o, final Object arg) {
-        if (!colorIterator.hasNext()) {
-            colorIterator = backgroundColors.iterator();
+        Graphics2D g = (Graphics2D) getGraphics();
+        renderModel(g, model.getState());
+        drawInfo(g, model.getScore());
+    }
+
+    private void drawInfo(Graphics2D g, int score) {
+        BufferedImage bi = new BufferedImage(width, 30, BufferedImage.TYPE_INT_ARGB);
+        Graphics2D biGraphics = bi.createGraphics();
+
+        biGraphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        biGraphics.setBackground(new Color(30, 70, 70));
+        biGraphics.clearRect(0, 0, width, 45);
+        biGraphics.setColor(currentBackground);
+
+        if (bestScore < score) {
+            bestScore = score;
         }
-        renderModel((Graphics2D) getGraphics(), model.getState(), width, height, BLOCK_SIZE, blocksList, currentBlocks);
+        biGraphics.setFont(new Font("Type1", Font.TYPE1_FONT, 12));
+        biGraphics.drawString("Score: " + score, 200, 15);
+        biGraphics.drawString("Best score: " + bestScore, 200, 27);
+        if(model.hasGame()){
+            biGraphics.drawString("P - Pause", 10, 15);
+            biGraphics.drawString("Shift - Switch background", 10, 27);
+        }else{
+            biGraphics.drawString("Game Over", 10, 15);
+            biGraphics.drawString("Space - Start new game", 10, 27);
+        }
+
+        g.drawImage(bi, 0, 0, null);
     }
 
     private List<BufferedImage> initialBlocksPictures() {
@@ -64,17 +94,14 @@ public class MainPanel extends JPanel implements Observer {
 
     private List<Color> initialBackgroundColors() {
         List<Color> colorList = new ArrayList<>();
-        colorList.add(Color.WHITE);
-        colorList.add(new Color(10, 50, 70));
-        colorList.add(new Color(100, 200, 180));
+        colorList.add(new Color(0x29, 0xb4, 0x67));
+        colorList.add(new Color(20, 40, 60));
         colorList.add(new Color(150, 40, 70));
-        colorList.add(new Color(0x29, 0xb4,0x67));
+        colorList.add(new Color(250, 250, 250));
         return colorList;
     }
 
-    private void renderModel(final Graphics2D g, final int[][] model, final int width, final int height, final int blockSize,
-                             final List<BufferedImage> blocks, final Map<Integer, BufferedImage> currentBlocks) {
-
+    private void renderModel(final Graphics2D g, final int[][] model) {
         BufferedImage bi = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
         Graphics2D biGraphics = bi.createGraphics();
         biGraphics.setBackground(currentBackground);
@@ -91,17 +118,17 @@ public class MainPanel extends JPanel implements Observer {
 
                 //Current block is not a new figure
                 if (currentBlocks.containsKey(model[i][j])) {
-                    biGraphics.drawImage(currentBlocks.get(model[i][j]), j * blockSize, i * blockSize, null);
+                    biGraphics.drawImage(currentBlocks.get(model[i][j]), j * BLOCK_SIZE, i * BLOCK_SIZE, null);
                 }
 
                 //Current block is a new figure, need to assign new image
                 else {
-                    currentBlocks.put(model[i][j], blocks.get(random.nextInt(blocks.size())));
-                    biGraphics.drawImage(currentBlocks.get(model[i][j]), j * blockSize, i * blockSize, null);
+                    currentBlocks.put(model[i][j], blocksList.get(random.nextInt(blocksList.size())));
+                    biGraphics.drawImage(currentBlocks.get(model[i][j]), j * BLOCK_SIZE, i * BLOCK_SIZE, null);
                 }
             }
         }
-        g.drawImage(bi, 0, 0, null);
+        g.drawImage(bi, 0, 30, null);
     }
 
     public void changeBackgroundColor() {

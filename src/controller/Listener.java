@@ -18,7 +18,15 @@ public class Listener extends KeyAdapter {
 
     @Override
     public void keyPressed(KeyEvent e) {
-        if (!gameState.hasGame) {
+        if (!gameState.hasGame()) {
+            switch (e.getKeyCode()) {
+
+                case KeyEvent.VK_SPACE:
+
+
+                    GameStateUpdater.isNewGameButtonPressed = true;
+                    break;
+            }
             return;
         }
         switch (e.getKeyCode()) {
@@ -42,11 +50,7 @@ public class Listener extends KeyAdapter {
                 gameState.moveFigureDown();
                 break;
 
-
-            case KeyEvent.VK_SPACE:
-                //need to start new game
-                break;
-
+            case KeyEvent.VK_PAUSE:
             case KeyEvent.VK_P:
                 if (gameState.isPaused) {
                     gameState.isPaused = false;
@@ -63,6 +67,5 @@ public class Listener extends KeyAdapter {
                 //just ignore it
         }
     }
-
 
 }

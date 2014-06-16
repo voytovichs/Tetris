@@ -14,7 +14,7 @@ public class GameState extends Observable implements Drawable {
     private final int[][] field = new int[HEIGHT][WIDTH];
     private int counterOfFigures = 1;
     private final RandomFigureGenerator figureGenerator = new RandomFigureGenerator(WIDTH, HEIGHT);
-    public boolean hasGame = true;
+    private boolean hasGame = true;
     public boolean isPaused = false;
     public int DELAY = 700;
     private int score = 0;
@@ -131,6 +131,7 @@ public class GameState extends Observable implements Drawable {
             counterOfFigures++;
             if (isIntersect(currentFigure, field)) {
                 hasGame = false;
+                setChangedAndNotify();
                 return;
             }
             drawFigureOnField(currentFigure, field);
@@ -198,5 +199,28 @@ public class GameState extends Observable implements Drawable {
     }
 
     @Override
-    public int getScore() { return score; }
+    public int getScore() {
+        return score;
+    }
+
+    @Override
+    public void clear() {
+
+        for(int i = 0; i < field.length; i++){
+            for(int j = 0; j < field[i].length; j++){
+                field[i][j] = 0;
+            }
+        }
+        currentFigure = figureGenerator.getRandomFigure();
+        score = 0;
+        counterOfFigures = 1;
+        DELAY = 700;
+        hasGame = true;
+        setChangedAndNotify();
+    }
+
+    @Override
+    public boolean hasGame() {
+        return hasGame;
+    }
 }
