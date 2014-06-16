@@ -23,7 +23,6 @@ public class RandomFigureGenerator {
         figures.add(new TFigure(fieldWidth, fieldHeight));
         figures.add(new ZLeftFigure(fieldWidth, fieldHeight));
         figures.add(new ZRightFigure(fieldWidth, fieldHeight));
-
     }
 
     public Figure getRandomFigure() {

@@ -18,36 +18,36 @@ public class Listener extends KeyAdapter {
 
     @Override
     public void keyPressed(KeyEvent e) {
+
         if (!gameState.hasGame()) {
             switch (e.getKeyCode()) {
-
                 case KeyEvent.VK_SPACE:
-
-
                     GameStateUpdater.isNewGameButtonPressed = true;
                     break;
             }
             return;
         }
+
         switch (e.getKeyCode()) {
 
             case KeyEvent.VK_LEFT:
                 gameState.moveFigureLeft();
                 break;
 
-
             case KeyEvent.VK_RIGHT:
                 gameState.moveFigureRight();
                 break;
-
 
             case KeyEvent.VK_UP:
                 gameState.rotateFigure();
                 break;
 
-
             case KeyEvent.VK_DOWN:
                 gameState.moveFigureDown();
+                break;
+
+            case KeyEvent.VK_SHIFT:
+                panel.changeBackgroundColor();
                 break;
 
             case KeyEvent.VK_PAUSE:
@@ -59,13 +59,8 @@ public class Listener extends KeyAdapter {
                 gameState.isPaused = true;
                 break;
 
-            case KeyEvent.VK_SHIFT:
-                panel.changeBackgroundColor();
-                break;
-
             default:
-                //just ignore it
+                //ignore this case
         }
     }
-
 }

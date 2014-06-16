@@ -65,10 +65,10 @@ public class MainPanel extends JPanel implements Observer {
         biGraphics.setFont(new Font("Type1", Font.TYPE1_FONT, 12));
         biGraphics.drawString("Score: " + score, 200, 15);
         biGraphics.drawString("Best score: " + bestScore, 200, 27);
-        if(model.hasGame()){
+        if (model.hasGame()) {
             biGraphics.drawString("P - Pause", 10, 15);
             biGraphics.drawString("Shift - Switch background", 10, 27);
-        }else{
+        } else {
             biGraphics.drawString("Game Over", 10, 15);
             biGraphics.drawString("Space - Start new game", 10, 27);
         }
@@ -96,6 +96,7 @@ public class MainPanel extends JPanel implements Observer {
         List<Color> colorList = new ArrayList<>();
         colorList.add(new Color(0x29, 0xb4, 0x67));
         colorList.add(new Color(20, 40, 60));
+        colorList.add(new Color(0xff, 0xff, 0x60));
         colorList.add(new Color(150, 40, 70));
         colorList.add(new Color(250, 250, 250));
         return colorList;

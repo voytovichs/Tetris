@@ -10,13 +10,15 @@ public class GameState extends Observable implements Drawable {
 
     private final int WIDTH = 11;
     private final int HEIGHT = 16;
-    private Figure currentFigure;
     private final int[][] field = new int[HEIGHT][WIDTH];
+
     private int counterOfFigures = 1;
+    private Figure currentFigure;
     private final RandomFigureGenerator figureGenerator = new RandomFigureGenerator(WIDTH, HEIGHT);
+
     private boolean hasGame = true;
     public boolean isPaused = false;
-    public int DELAY = 700;
+    public int delay = 700;
     private int score = 0;
 
     public GameState() {
@@ -188,8 +190,8 @@ public class GameState extends Observable implements Drawable {
 
     private void increaseScore() {
         score += 10 * WIDTH;
-        if (DELAY > 300) {
-            DELAY -= 20;
+        if (delay > 300) {
+            delay -= 20;
         }
     }
 
@@ -205,16 +207,15 @@ public class GameState extends Observable implements Drawable {
 
     @Override
     public void clear() {
-
-        for(int i = 0; i < field.length; i++){
-            for(int j = 0; j < field[i].length; j++){
+        for (int i = 0; i < field.length; i++) {
+            for (int j = 0; j < field[i].length; j++) {
                 field[i][j] = 0;
             }
         }
         currentFigure = figureGenerator.getRandomFigure();
         score = 0;
         counterOfFigures = 1;
-        DELAY = 700;
+        delay = 700;
         hasGame = true;
         setChangedAndNotify();
     }

@@ -37,24 +37,25 @@ public class GameStateUpdater {
         MainFrame mainFrame = init();
         while (true) {
             isNewGameButtonPressed = false;
-
             while (gameState.hasGame()) {
                 gameState.moveFigureDown();
                 try {
-                    Thread.sleep(gameState.DELAY);
+                    Thread.sleep(gameState.delay);
                     while (gameState.isPaused) {
                         Thread.sleep(300);
                     }
                 } catch (InterruptedException e) {
-                    e.printStackTrace();
+                    continue;
                 }
             }
-            if (gameState.getScore() > getBestScore()) { writeBestScore(gameState.getScore()); }
+            if (gameState.getScore() > getBestScore()) {
+                writeBestScore(gameState.getScore());
+            }
             while (!isNewGameButtonPressed) {
                 try {
                     Thread.sleep(500);
                 } catch (InterruptedException e) {
-                    e.printStackTrace();
+                    continue;
                 }
             }
             mainFrame.clearAndRestart();
@@ -73,7 +74,7 @@ public class GameStateUpdater {
         try (FileWriter writer = new FileWriter(new File("resources/BestScore.txt"))) {
             writer.write(String.valueOf(score));
         } catch (IOException e) {
-            e.printStackTrace();
+            return;
         }
     }
 }

@@ -18,7 +18,7 @@ public class MainFrame extends JFrame {
         setVisible(true);
     }
 
-    public void clearAndRestart(){
+    public void clearAndRestart() {
         model.clear();
     }
 
