@@ -94,11 +94,12 @@ public class MainPanel extends JPanel implements Observer {
 
     private List<Color> initialBackgroundColors() {
         List<Color> colorList = new ArrayList<>();
-        colorList.add(new Color(0x29, 0xb4, 0x67));
-        colorList.add(new Color(20, 40, 60));
-        colorList.add(new Color(0xff, 0xff, 0x60));
-        colorList.add(new Color(150, 40, 70));
-        colorList.add(new Color(250, 250, 250));
+        colorList.add(new Color(240, 240, 240));
+        colorList.add(new Color(0x39, 0xa4, 0x67));
+        colorList.add(new Color(1, 43, 64));
+        colorList.add(new Color(150, 50, 70));
+        colorList.add(new Color(35, 40, 60));
+        colorList.add(new Color(0, 85, 42));
         return colorList;
     }
 
