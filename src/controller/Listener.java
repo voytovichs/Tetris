@@ -1,16 +1,19 @@
 package controller;
 
 import model.GameState;
+import viev.MainPanel;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
 public class Listener extends KeyAdapter {
 
-    private GameState gameState;
+    private final GameState gameState;
+    private final MainPanel panel;
 
-    public Listener(GameState gameState) {
+    public Listener(GameState gameState, MainPanel panel) {
         this.gameState = gameState;
+        this.panel = panel;
     }
 
     @Override
@@ -50,6 +53,10 @@ public class Listener extends KeyAdapter {
                     break;
                 }
                 gameState.isPaused = true;
+                break;
+
+            case KeyEvent.VK_SHIFT:
+                panel.changeBackgroundColor();
                 break;
 
             default:

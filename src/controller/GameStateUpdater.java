@@ -17,9 +17,12 @@ public class GameStateUpdater {
     private static void init() {
 
         gameState = new GameState();
-        MainPanel mainPanel = new MainPanel(gameState, new Listener(gameState));
+        MainPanel mainPanel = new MainPanel(gameState);
+        mainPanel.addKeyListener(new Listener(gameState, mainPanel));
+        MainFrame mainFrame = new MainFrame(mainPanel, gameState);
+
         gameState.addObserver(mainPanel);
-        new MainFrame(mainPanel);
+        gameState.addObserver(mainFrame);
         gameState.setChangedAndNotify();
     }
 

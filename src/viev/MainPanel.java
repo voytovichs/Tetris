@@ -3,7 +3,6 @@ package viev;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.KeyAdapter;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -15,21 +14,25 @@ public class MainPanel extends JPanel implements Observer {
 
     private final Drawable model;
     private final List<BufferedImage> blocksList;
+    private final List<Color> backgroundColors;
+    private Iterator<Color> colorIterator;
+    private Color currentBackground;
     private final Map<Integer, BufferedImage> currentBlocks;
     private final int BLOCK_SIZE = 30;
-    private final int BORDER_SIZE = 0;
     private final int width;
     private final int height;
 
 
-    public MainPanel(final Drawable model, final KeyAdapter listener) {
+    public MainPanel(final Drawable model) {
 
-        this.blocksList = getBlocks();
+        blocksList = initialBlocksPictures();
+        backgroundColors = initialBackgroundColors();
+        colorIterator = backgroundColors.iterator();
+        currentBackground = colorIterator.next();
         currentBlocks = new HashMap<>();
         this.model = model;
-        this.width = model.getState()[0].length * BLOCK_SIZE + 2 * BORDER_SIZE;
-        this.height = model.getState().length * BLOCK_SIZE + 2 * BORDER_SIZE;
-        this.addKeyListener(listener);
+        width = model.getState()[0].length * BLOCK_SIZE;
+        height = model.getState().length * BLOCK_SIZE;
 
         setFocusable(true);
         setSize(new Dimension(width, height));
@@ -37,15 +40,17 @@ public class MainPanel extends JPanel implements Observer {
 
     @Override
     public void update(final Observable o, final Object arg) {
-        renderModel((Graphics2D) getGraphics(), model.getState(), width, height, BLOCK_SIZE, BORDER_SIZE, blocksList, currentBlocks);
+        if (!colorIterator.hasNext()) {
+            colorIterator = backgroundColors.iterator();
+        }
+        renderModel((Graphics2D) getGraphics(), model.getState(), width, height, BLOCK_SIZE, blocksList, currentBlocks);
     }
 
-    private List<BufferedImage> getBlocks() {
+    private List<BufferedImage> initialBlocksPictures() {
         List<BufferedImage> blocksList = new ArrayList<>();
         try {
             blocksList.add(ImageIO.read(new File("resources/aqua.png")));
             blocksList.add(ImageIO.read(new File("resources/blue.png")));
-            blocksList.add(ImageIO.read(new File("resources/bluepeach.png")));
             blocksList.add(ImageIO.read(new File("resources/bordo.png")));
             blocksList.add(ImageIO.read(new File("resources/darkblue.png")));
             blocksList.add(ImageIO.read(new File("resources/green.png")));
@@ -57,12 +62,22 @@ public class MainPanel extends JPanel implements Observer {
         return blocksList;
     }
 
+    private List<Color> initialBackgroundColors() {
+        List<Color> colorList = new ArrayList<>();
+        colorList.add(Color.WHITE);
+        colorList.add(new Color(10, 50, 70));
+        colorList.add(new Color(100, 200, 180));
+        colorList.add(new Color(150, 40, 70));
+        colorList.add(new Color(0x29, 0xb4,0x67));
+        return colorList;
+    }
+
     private void renderModel(final Graphics2D g, final int[][] model, final int width, final int height, final int blockSize,
-                             final int borderSize, final List<BufferedImage> blocks, final Map<Integer, BufferedImage> currentBlocks) {
+                             final List<BufferedImage> blocks, final Map<Integer, BufferedImage> currentBlocks) {
 
         BufferedImage bi = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
         Graphics2D biGraphics = bi.createGraphics();
-        biGraphics.setBackground(Color.WHITE);
+        biGraphics.setBackground(currentBackground);
         biGraphics.clearRect(0, 0, width, height);
         Random random = new Random();
 
@@ -86,6 +101,13 @@ public class MainPanel extends JPanel implements Observer {
                 }
             }
         }
-        g.drawImage(bi, borderSize, borderSize, null);
+        g.drawImage(bi, 0, 0, null);
+    }
+
+    public void changeBackgroundColor() {
+        if (!colorIterator.hasNext()) {
+            colorIterator = backgroundColors.iterator();
+        }
+        currentBackground = colorIterator.next();
     }
 }
