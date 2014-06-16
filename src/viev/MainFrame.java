@@ -10,7 +10,7 @@ public class MainFrame extends JFrame {
         this.model = model;
 
         setSize(mainPanel.getWidth(), mainPanel.getHeight());
-        setTitle("Best tetris ever");
+        setTitle("Tetris");
         setResizable(false);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
