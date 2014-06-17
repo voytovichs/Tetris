@@ -20,47 +20,52 @@ public class Listener extends KeyAdapter {
     public void keyPressed(KeyEvent e) {
 
         if (!gameState.hasGame()) {
+
             switch (e.getKeyCode()) {
                 case KeyEvent.VK_SPACE:
                     GameStateUpdater.isNewGameButtonPressed = true;
                     break;
             }
-            return;
-        }
+        } else if (gameState.isPaused) {
 
-        switch (e.getKeyCode()) {
-
-            case KeyEvent.VK_LEFT:
-                gameState.moveFigureLeft();
-                break;
-
-            case KeyEvent.VK_RIGHT:
-                gameState.moveFigureRight();
-                break;
-
-            case KeyEvent.VK_UP:
-                gameState.rotateFigure();
-                break;
-
-            case KeyEvent.VK_DOWN:
-                gameState.moveFigureDown();
-                break;
-
-            case KeyEvent.VK_SHIFT:
-                panel.changeBackgroundColor();
-                break;
-
-            case KeyEvent.VK_PAUSE:
-            case KeyEvent.VK_P:
-                if (gameState.isPaused) {
+            switch (e.getKeyCode()) {
+                case KeyEvent.VK_PAUSE:
+                case KeyEvent.VK_P:
                     gameState.isPaused = false;
                     break;
-                }
-                gameState.isPaused = true;
-                break;
+            }
+        } else {
 
-            default:
-                //ignore this case
+            switch (e.getKeyCode()) {
+
+                case KeyEvent.VK_LEFT:
+                    gameState.moveFigureLeft();
+                    break;
+
+                case KeyEvent.VK_RIGHT:
+                    gameState.moveFigureRight();
+                    break;
+
+                case KeyEvent.VK_UP:
+                    gameState.rotateFigure();
+                    break;
+
+                case KeyEvent.VK_DOWN:
+                    gameState.moveFigureDown();
+                    break;
+
+                case KeyEvent.VK_SHIFT:
+                    panel.changeBackgroundColor();
+                    break;
+
+                case KeyEvent.VK_PAUSE:
+                case KeyEvent.VK_P:
+                    gameState.isPaused = true;
+                    break;
+
+                default:
+                    //ignore this case
+            }
         }
     }
 }

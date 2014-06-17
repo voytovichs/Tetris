@@ -4,8 +4,6 @@ import model.GameState;
 import view.MainFrame;
 import view.MainPanel;
 
-import java.io.*;
-
 
 public class GameStateUpdater {
 
@@ -16,10 +14,10 @@ public class GameStateUpdater {
         startGame();
     }
 
-    private static MainFrame init(ScoreIO io) {
+    private static MainFrame init() {
 
         gameState = new GameState();
-        MainPanel mainPanel = new MainPanel(gameState, io.getBestScore());
+        MainPanel mainPanel = new MainPanel(gameState);
         mainPanel.addKeyListener(new Listener(gameState, mainPanel));
         MainFrame mainFrame = new MainFrame(mainPanel, gameState);
 
@@ -30,8 +28,7 @@ public class GameStateUpdater {
 
     public static void startGame() {
 
-        ScoreIO io = new ScoreIO();
-        MainFrame mainFrame = init(io);
+        MainFrame mainFrame = init();
         while (true) {
             isNewGameButtonPressed = false;
             while (gameState.hasGame()) {
@@ -45,9 +42,6 @@ public class GameStateUpdater {
                     //do nothing
                 }
             }
-            if (gameState.getScore() > io.getBestScore()) {
-                io.writeBestScore(gameState.getScore());
-            }
             while (!isNewGameButtonPressed) {
                 try {
                     Thread.sleep(500);
@@ -57,25 +51,5 @@ public class GameStateUpdater {
             }
             mainFrame.clearAndRestart();
         }
-    }
-
-    private static class ScoreIO{
-
-    private int getBestScore() {
-        try (BufferedReader br = new BufferedReader(new InputStreamReader(getClass().getClassLoader().getResourceAsStream("res/BestScore.txt")))) {
-            return Integer.parseInt(br.readLine());
-        } catch (IOException e) {
-            e.printStackTrace(System.out);
-            return 0;
-        }
-    }
-
-    private static void writeBestScore(int score) {
-        try (FileWriter writer = new FileWriter(new File("res/BestScore.txt"))) {
-            writer.write(String.valueOf(score));
-        } catch (IOException e) {
-            //do nothing
-        }
-    }
     }
 }

@@ -25,7 +25,7 @@ public class MainPanel extends JPanel implements Observer {
     private final int BLOCK_SIZE = 30;
 
 
-    public MainPanel(final Drawable model, final int bestScore) {
+    public MainPanel(final Drawable model) {
 
         blocksList = initialBlocksPictures();
         backgroundColors = initialBackgroundColors();
@@ -34,7 +34,7 @@ public class MainPanel extends JPanel implements Observer {
         currentBlocks = new HashMap<>();
 
         this.model = model;
-        this.bestScore = bestScore;
+        this.bestScore = 0;
         width = model.getState()[0].length * BLOCK_SIZE;
         height = model.getState().length * BLOCK_SIZE;
 
