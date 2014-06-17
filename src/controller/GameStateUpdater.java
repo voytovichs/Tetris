@@ -45,7 +45,7 @@ public class GameStateUpdater {
                         Thread.sleep(300);
                     }
                 } catch (InterruptedException e) {
-                    continue;
+                    //do nothing
                 }
             }
             if (gameState.getScore() > getBestScore()) {
@@ -55,7 +55,7 @@ public class GameStateUpdater {
                 try {
                     Thread.sleep(500);
                 } catch (InterruptedException e) {
-                    continue;
+                    //do nothing
                 }
             }
             mainFrame.clearAndRestart();
@@ -63,7 +63,7 @@ public class GameStateUpdater {
     }
 
     private static int getBestScore() {
-        try (Scanner scanner = new Scanner(new File("resources/BestScore.txt"))) {
+        try (Scanner scanner = new Scanner(new File("/resources/BestScore.txt"))) {
             return scanner.nextInt();
         } catch (FileNotFoundException e) {
             return 0;
@@ -71,10 +71,10 @@ public class GameStateUpdater {
     }
 
     private static void writeBestScore(int score) {
-        try (FileWriter writer = new FileWriter(new File("resources/BestScore.txt"))) {
+        try (FileWriter writer = new FileWriter(new File("/resources/BestScore.txt"))) {
             writer.write(String.valueOf(score));
         } catch (IOException e) {
-            return;
+            //do nothing
         }
     }
 }
