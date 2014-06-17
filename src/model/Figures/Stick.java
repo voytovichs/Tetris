@@ -6,14 +6,16 @@ public class Stick extends Figure {
 
     public Stick(final int fieldWidth, final int fieldHeight) {
         super(fieldWidth, fieldHeight);
+        this.isVertical = true;
         boolean[][] presentation = {{true}, {true}, {true}, {true}};
         super.setPresentation(presentation);
         super.X = fieldWidth / 2;
         super.Y = -3;
     }
 
-    public Stick(final Figure figure) {
+    public Stick(final Figure figure, final boolean isVertical) {
         super(figure);
+        this.isVertical = isVertical;
     }
 
     @Override
@@ -56,6 +58,6 @@ public class Stick extends Figure {
 
     @Override
     public Figure clone() {
-        return new Stick(this);
+        return new Stick(this, this.isVertical);
     }
 }

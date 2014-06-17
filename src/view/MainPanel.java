@@ -4,7 +4,6 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.util.*;
 import java.util.List;
@@ -79,13 +78,13 @@ public class MainPanel extends JPanel implements Observer {
     private List<BufferedImage> initialBlocksPictures() {
         List<BufferedImage> blocksList = new ArrayList<>();
         try {
-            blocksList.add(ImageIO.read(new File("resources/aqua.png")));
-            blocksList.add(ImageIO.read(new File("resources/blue.png")));
-            blocksList.add(ImageIO.read(new File("resources/bordo.png")));
-            blocksList.add(ImageIO.read(new File("resources/darkblue.png")));
-            blocksList.add(ImageIO.read(new File("resources/green.png")));
-            blocksList.add(ImageIO.read(new File("resources/red.png")));
-            blocksList.add(ImageIO.read(new File("resources/yellow.png")));
+            blocksList.add(ImageIO.read(getClass().getResource("/res/aqua.png")));
+            blocksList.add(ImageIO.read(getClass().getResource("/res/blue.png")));
+            blocksList.add(ImageIO.read(getClass().getResource("/res/darkblue.png")));
+            blocksList.add(ImageIO.read(getClass().getResource("/res/bordo.png")));
+            blocksList.add(ImageIO.read(getClass().getResource("/res/green.png")));
+            blocksList.add(ImageIO.read(getClass().getResource("/res/red.png")));
+            blocksList.add(ImageIO.read(getClass().getResource("/res/yellow.png")));
         } catch (IOException e) {
             blocksList.add(new BufferedImage(10, 10, 10));
             e.printStackTrace(System.out);
