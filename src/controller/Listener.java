@@ -1,7 +1,7 @@
 package controller;
 
 import model.GameState;
-import viev.MainPanel;
+import view.MainPanel;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;

@@ -1,4 +1,4 @@
-package viev;
+package view;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -88,6 +88,7 @@ public class MainPanel extends JPanel implements Observer {
             blocksList.add(ImageIO.read(new File("resources/yellow.png")));
         } catch (IOException e) {
             blocksList.add(new BufferedImage(10, 10, 10));
+            e.printStackTrace(System.out);
         }
         return blocksList;
     }

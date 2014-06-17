@@ -1,4 +1,4 @@
-package viev;
+package view;
 
 public interface Drawable {
 

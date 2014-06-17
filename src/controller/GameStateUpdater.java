@@ -1,8 +1,8 @@
 package controller;
 
 import model.GameState;
-import viev.MainFrame;
-import viev.MainPanel;
+import view.MainFrame;
+import view.MainPanel;
 
 import java.io.File;
 import java.io.FileNotFoundException;

@@ -1,7 +1,7 @@
 package model;
 
 import model.Figures.Figure;
-import viev.Drawable;
+import view.Drawable;
 
 import java.util.Arrays;
 import java.util.Observable;
