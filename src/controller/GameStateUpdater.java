@@ -29,6 +29,7 @@ public class GameStateUpdater {
     public static void startGame() {
 
         MainFrame mainFrame = init();
+        mainFrame.setCrossplatformSize();
         while (true) {
             isNewGameButtonPressed = false;
             while (gameState.hasGame()) {
