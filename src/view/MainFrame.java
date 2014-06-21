@@ -1,8 +1,6 @@
 package view;
 
 import javax.swing.*;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 
 public class MainFrame extends JFrame {
 
@@ -15,12 +13,6 @@ public class MainFrame extends JFrame {
         this.panelWidth = mainPanel.getWidth();
         this.panelHeight = mainPanel.getHeight();
 
-        addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowActivated(WindowEvent windowEvent) {
-                mainPanel.repaintField();
-            }
-        });
         setSize(panelWidth, panelHeight);
         setTitle("Tetris");
         setResizable(false);

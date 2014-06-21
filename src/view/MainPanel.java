@@ -44,10 +44,6 @@ public class MainPanel extends JPanel implements Observer {
 
     @Override
     public void update(final Observable o, final Object arg) {
-        repaintField();
-    }
-
-    public void repaintField() {
         Graphics2D g = (Graphics2D) getGraphics();
         renderModel(g, model.getState());
         drawInfo(g, model.getScore());
