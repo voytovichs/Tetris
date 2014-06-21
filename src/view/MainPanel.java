@@ -44,6 +44,10 @@ public class MainPanel extends JPanel implements Observer {
 
     @Override
     public void update(final Observable o, final Object arg) {
+        repaintField();
+    }
+
+    public void repaintField() {
         Graphics2D g = (Graphics2D) getGraphics();
         renderModel(g, model.getState());
         drawInfo(g, model.getScore());
@@ -62,13 +66,13 @@ public class MainPanel extends JPanel implements Observer {
             bestScore = score;
         }
         biGraphics.setFont(new Font("Type1", Font.TYPE1_FONT, 12));
-        biGraphics.drawString("Score: " + score, 200, 15);
-        biGraphics.drawString("Best score: " + bestScore, 200, 27);
+        biGraphics.drawString("Score: " + score, 240, 15);
+        biGraphics.drawString("Best: " + bestScore, 240, 27);
         if (model.hasGame()) {
             biGraphics.drawString("P - Pause", 10, 15);
             biGraphics.drawString("Shift - Switch background", 10, 27);
         } else {
-            biGraphics.drawString("Game Over", 10, 15);
+            biGraphics.drawString("Game over", 10, 15);
             biGraphics.drawString("Space - Start new game", 10, 27);
         }
 
