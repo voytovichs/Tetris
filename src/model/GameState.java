@@ -190,7 +190,7 @@ public class GameState extends Observable implements Drawable {
 
     private void increaseScore() {
         score += 10 * WIDTH;
-        if (delay > 300) {
+        if (delay > 200) {
             delay -= 20;
         }
     }
