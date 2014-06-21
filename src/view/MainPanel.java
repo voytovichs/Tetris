@@ -72,7 +72,7 @@ public class MainPanel extends JPanel implements Observer {
             biGraphics.drawString("P - Pause", 10, 15);
             biGraphics.drawString("Shift - Switch background", 10, 27);
         } else {
-            biGraphics.drawString("Game over", 10, 15);
+            biGraphics.drawString("voytovich.sergeey@gmail.com", 10, 15);
             biGraphics.drawString("Space - Start new game", 10, 27);
         }
 
