@@ -98,7 +98,6 @@ public class MainPanel extends JPanel implements Observer {
         colorList.add(new Color(0x39, 0xa4, 0x67));
         colorList.add(new Color(1, 43, 64));
         colorList.add(new Color(150, 50, 70));
-        colorList.add(new Color(35, 40, 60));
         return colorList;
     }
 
