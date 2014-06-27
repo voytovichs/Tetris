@@ -8,8 +8,8 @@ import java.util.Observable;
 
 public class GameState extends Observable implements Drawable {
 
-    private final int WIDTH = 11;
-    private final int HEIGHT = 16;
+    private static final int WIDTH = 11;
+    private static final int HEIGHT = 16;
     private final int[][] field = new int[HEIGHT][WIDTH];
 
     private int counterOfFigures = 1;
@@ -17,8 +17,8 @@ public class GameState extends Observable implements Drawable {
     private final RandomFigureGenerator figureGenerator = new RandomFigureGenerator(WIDTH, HEIGHT);
 
     private boolean hasGame = true;
-    public boolean isPaused = false;
-    public int delay = 700;
+    private boolean isPaused = false;
+    private int delay = 700;
     private int score = 0;
 
     public GameState() {
@@ -157,7 +157,7 @@ public class GameState extends Observable implements Drawable {
         setChangedAndNotify();
     }
 
-    public synchronized void moveFigureRight() {
+    public void moveFigureRight() {
 
         eraseFigureFromField(currentFigure, field);
         if (!canFigureMovesRight(currentFigure, field)) {
@@ -193,6 +193,22 @@ public class GameState extends Observable implements Drawable {
         if (delay > 200) {
             delay -= 15;
         }
+    }
+
+    public void pause() {
+        isPaused = true;
+    }
+
+    public void unpause() {
+        isPaused = false;
+    }
+
+    public boolean isPaused() {
+        return isPaused;
+    }
+
+    public int getDelay() {
+        return delay;
     }
 
     @Override

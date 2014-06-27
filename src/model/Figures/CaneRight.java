@@ -8,7 +8,7 @@ public class CaneRight extends Figure {
         super.setPresentation(presentation);
     }
 
-    public CaneRight(Figure figure) {
+    public CaneRight(final Figure figure) {
         super(figure);
     }
 

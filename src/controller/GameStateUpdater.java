@@ -8,7 +8,7 @@ import view.MainPanel;
 public class GameStateUpdater {
 
     private static GameState gameState;
-    static boolean isNewGameButtonPressed;
+    private static boolean isNewGameButtonPressed = false;
 
     public static void main(String[] args) {
         startGame();
@@ -35,8 +35,8 @@ public class GameStateUpdater {
             while (gameState.hasGame()) {
                 gameState.moveFigureDown();
                 try {
-                    Thread.sleep(gameState.delay);
-                    while (gameState.isPaused) {
+                    Thread.sleep(gameState.getDelay());
+                    while (gameState.isPaused()) {
                         Thread.sleep(300);
                     }
                 } catch (InterruptedException e) {
@@ -52,5 +52,9 @@ public class GameStateUpdater {
             }
             mainFrame.clearAndRestart();
         }
+    }
+
+    public static void setNewGameButtonPressed() {
+        isNewGameButtonPressed = true;
     }
 }

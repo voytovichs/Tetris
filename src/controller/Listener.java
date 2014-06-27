@@ -11,7 +11,7 @@ public class Listener extends KeyAdapter {
     private final GameState gameState;
     private final MainPanel panel;
 
-    public Listener(GameState gameState, MainPanel panel) {
+    public Listener(final GameState gameState, final MainPanel panel) {
         this.gameState = gameState;
         this.panel = panel;
     }
@@ -23,15 +23,15 @@ public class Listener extends KeyAdapter {
 
             switch (e.getKeyCode()) {
                 case KeyEvent.VK_SPACE:
-                    GameStateUpdater.isNewGameButtonPressed = true;
+                    GameStateUpdater.setNewGameButtonPressed();
                     break;
             }
-        } else if (gameState.isPaused) {
+        } else if (gameState.isPaused()) {
 
             switch (e.getKeyCode()) {
                 case KeyEvent.VK_PAUSE:
                 case KeyEvent.VK_P:
-                    gameState.isPaused = false;
+                    gameState.unpause();
                     break;
             }
         } else {
@@ -60,11 +60,11 @@ public class Listener extends KeyAdapter {
 
                 case KeyEvent.VK_PAUSE:
                 case KeyEvent.VK_P:
-                    gameState.isPaused = true;
+                    gameState.pause();
                     break;
 
                 default:
-                    //ignore this case
+                    //ignore this
             }
         }
     }
