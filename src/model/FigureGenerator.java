@@ -6,12 +6,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class RandomFigureGenerator {
+public class FigureGenerator {
 
     private final List<Figure> figures;
     private final Random random;
 
-    public RandomFigureGenerator(final int fieldWidth, final int fieldHeight) {
+    public FigureGenerator(final int fieldWidth, final int fieldHeight) {
 
         random = new Random();
         figures = new ArrayList<>();

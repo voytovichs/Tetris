@@ -14,7 +14,7 @@ public class GameState extends Observable implements Drawable {
 
     private int counterOfFigures = 1;
     private Figure currentFigure;
-    private final RandomFigureGenerator figureGenerator = new RandomFigureGenerator(WIDTH, HEIGHT);
+    private final FigureGenerator figureGenerator = new FigureGenerator(WIDTH, HEIGHT);
 
     private boolean hasGame = true;
     private boolean isPaused = false;
@@ -112,7 +112,7 @@ public class GameState extends Observable implements Drawable {
         setChangedAndNotify();
     }
 
-    public synchronized void moveFigureDown() {
+    public void moveFigureDown() {
 
         if (!canFigureMovesDown(currentFigure)) {
             deleteFilledLines(field);
