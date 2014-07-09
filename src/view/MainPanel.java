@@ -85,8 +85,8 @@ public class MainPanel extends JPanel implements Observer {
             blocksList.add(ImageIO.read(getClass().getResource("/res/green.png")));
             blocksList.add(ImageIO.read(getClass().getResource("/res/red.png")));
             blocksList.add(ImageIO.read(getClass().getResource("/res/yellow.png")));
-        } catch (IOException e) {
-            blocksList.add(new BufferedImage(10, 10, 10));
+        } catch (IOException | IllegalArgumentException e) {
+            blocksList.add(new BufferedImage(29, 29, 10));
             e.printStackTrace(System.out);
         }
         return blocksList;
