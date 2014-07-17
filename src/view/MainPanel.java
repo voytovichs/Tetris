@@ -45,11 +45,12 @@ public class MainPanel extends JPanel implements Observer {
     @Override
     public void update(final Observable o, final Object arg) {
         Graphics2D g = (Graphics2D) getGraphics();
+
         renderModel(g, model.getState());
         drawInfo(g, model.getScore());
     }
 
-    private void drawInfo(final Graphics2D g, final  int score) {
+    private void drawInfo(final Graphics2D g, final int score) {
         BufferedImage bi = new BufferedImage(width, 30, BufferedImage.TYPE_INT_ARGB);
         Graphics2D biGraphics = bi.createGraphics();
 
