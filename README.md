@@ -4,4 +4,4 @@
 
 Something I did when in the begining.
 
-Download jar: https://github.com/voytovichs/Tetris/blob/master/SoTetris.jar?raw=true
+Download [jar] (https://github.com/voytovichs/Tetris/blob/master/SoTetris.jar?raw=true)
